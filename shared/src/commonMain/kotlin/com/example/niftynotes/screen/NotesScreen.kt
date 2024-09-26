@@ -30,12 +30,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.niftynotes.NoteViewModel
 import com.example.niftynotes.db.NoteEntity
+import niftynotes.shared.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun NoteList(
     viewModel: NoteViewModel,
@@ -61,12 +64,11 @@ fun NoteList(
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add Note",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         },
-        contentWindowInsets =
-        WindowInsets(
+        contentWindowInsets = WindowInsets(
             top = 0.dp,
             bottom = 0.dp,
         ),
@@ -77,13 +79,7 @@ fun NoteList(
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            Text(
-                text = "Your Notes",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            NoteView(
+            Notes(
                 modifier = modifier,
                 notes = notes,
                 onDeleteClick = { viewModel.deleteNote(it) }
@@ -93,7 +89,7 @@ fun NoteList(
 }
 
 @Composable
-fun NoteView(
+fun Notes(
     modifier: Modifier = Modifier,
     notes: List<NoteEntity>,
     onDeleteClick: (NoteEntity) -> Unit
@@ -119,9 +115,9 @@ fun NoteItem(
     onDeleteClick: (NoteEntity) -> Unit
 ) {
     Surface(
-        modifier = modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        modifier = modifier.padding(vertical = 4.dp),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, Color.LightGray),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
         shadowElevation = 2.dp,
         color = MaterialTheme.colorScheme.surface
     ) {
@@ -138,7 +134,8 @@ fun NoteItem(
                     text = note.noteTitle,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.weight(1f),
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 IconButton(
@@ -148,20 +145,21 @@ fun NoteItem(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Delete Note",
-                        tint = Color.Gray
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                     )
                 }
             }
 
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 8.dp),
-                color = Color.LightGray,
+                color = MaterialTheme.colorScheme.outline,
                 thickness = 1.dp
             )
 
             Text(
                 text = note.noteContent,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
             )
         }
     }

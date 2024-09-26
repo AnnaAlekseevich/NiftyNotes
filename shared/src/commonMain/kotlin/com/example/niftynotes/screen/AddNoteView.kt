@@ -1,9 +1,9 @@
+@file:OptIn(ExperimentalResourceApi::class)
+
 package com.example.niftynotes.screen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.niftynotes.AddNoteViewModel
 import niftynotes.shared.generated.resources.Res
+import niftynotes.shared.generated.resources.add_btn
+import niftynotes.shared.generated.resources.hint_note
+import niftynotes.shared.generated.resources.hint_note_label
+import niftynotes.shared.generated.resources.hint_title
+import niftynotes.shared.generated.resources.hint_title_label
+import niftynotes.shared.generated.resources.title_add_note
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AddNoteView(
@@ -29,7 +37,7 @@ fun AddNoteView(
 
     Column(modifier = modifier.fillMaxWidth().padding(16.dp)) {
         Text(
-            text = "Add Note", fontSize = 22.sp,
+            text = stringResource(Res.string.title_add_note), fontSize = 22.sp,
             modifier = Modifier.padding(vertical = 8.dp)
         )
 
@@ -43,9 +51,9 @@ fun AddNoteView(
             onValueChange = {
                 viewModel.onUpdateTitle(it)
             },
-            placeholder = { Text("Enter title:") },
+            placeholder = { Text(stringResource(Res.string.hint_title)) },
             singleLine = true,
-            label = { Text("Title:") },
+            label = { Text(stringResource(Res.string.hint_title_label)) },
         )
 
         OutlinedTextField(
@@ -58,9 +66,9 @@ fun AddNoteView(
             onValueChange = {
                 viewModel.onUpdateNote(it)
             },
-            placeholder = { Text("Enter your note:") },
+            placeholder = { Text(stringResource(Res.string.hint_note)) },
             singleLine = true,
-            label = { Text("Note:") },
+            label = { Text(stringResource(Res.string.hint_note_label)) },
             minLines = 15,
             maxLines = 30
         )
@@ -72,8 +80,7 @@ fun AddNoteView(
             },
             modifier = Modifier.padding(vertical = 16.dp),
         ) {
-            Text(text = "Add")
-
+            Text(stringResource(Res.string.add_btn))
         }
     }
 }

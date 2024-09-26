@@ -61,7 +61,6 @@ fun App() {
         val modifier = Modifier
         val backStackEntry by navigator.currentEntry.collectAsState(null)
         KoinF.setupKoin()
-        // Get the name of the current screen
         val currentScreen = TaskScreen.valueOf(
             backStackEntry?.route?.route ?: TaskScreen.NoteList.name
         )

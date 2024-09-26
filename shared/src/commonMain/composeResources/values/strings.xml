@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="hello_world">Hello world</string>
+    <string name="add_btn">Add</string>
+    <string name="title_your_notes">Your Notes</string>
+    <string name="title_note_lists">Note Lists</string>
+    <string name="title_create_note_item">Create Note Item</string>
+    <string name="title_add_note">Add Note</string>
+    <string name="hint_title_label">Title:</string>
+    <string name="hint_title">Enter title:</string>
+    <string name="hint_note_label">Note:</string>
+    <string name="hint_note">Enter note:</string>
+</resources>

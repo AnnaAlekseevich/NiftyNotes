@@ -17,7 +17,9 @@ class MainActivity : ComponentActivity() {
             androidContext(applicationContext)
         }
         setContent {
-            App()
+            MyApplicationTheme {
+                App()
+            }
         }
     }
 }
