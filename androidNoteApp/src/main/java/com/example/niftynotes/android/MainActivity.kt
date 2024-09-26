@@ -1,0 +1,36 @@
+package com.example.niftynotes.android
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.niftynotes.app.App
+import com.example.niftynotes.di.KoinF
+import org.koin.android.ext.koin.androidContext
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        KoinF.setupKoin {
+            androidContext(applicationContext)
+        }
+        setContent {
+            App()
+        }
+    }
+}
+
+@Composable
+fun GreetingView(text: String) {
+    Text(text = text)
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    MyApplicationTheme {
+        GreetingView("Hello, Android!")
+    }
+}
