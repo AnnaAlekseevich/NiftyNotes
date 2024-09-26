@@ -2,7 +2,7 @@ package com.example.niftynotes.app
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,7 +24,7 @@ import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
 
-enum class TaskScreen {
+enum class NotesScreen {
     NoteList,
     NoteItem
 }
@@ -32,7 +32,7 @@ enum class TaskScreen {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
-    currentScreen: TaskScreen,
+    currentScreen: NotesScreen,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
@@ -46,7 +46,7 @@ fun AppBar(
             if (canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "back"
                     )
                 }
@@ -61,8 +61,8 @@ fun App() {
         val modifier = Modifier
         val backStackEntry by navigator.currentEntry.collectAsState(null)
         KoinF.setupKoin()
-        val currentScreen = TaskScreen.valueOf(
-            backStackEntry?.route?.route ?: TaskScreen.NoteList.name
+        val currentScreen = NotesScreen.valueOf(
+            backStackEntry?.route?.route ?: NotesScreen.NoteList.name
         )
         val canNavigateBack by navigator.canGoBack.collectAsState(false)
         Scaffold(
@@ -79,17 +79,17 @@ fun App() {
                 modifier = Modifier.padding(paddingValues),
                 navigator = navigator,
                 navTransition = NavTransition(),
-                initialRoute = TaskScreen.NoteList.name
+                initialRoute = NotesScreen.NoteList.name
             ) {
                 scene(
-                    route = TaskScreen.NoteList.name,
+                    route = NotesScreen.NoteList.name,
                     navTransition = NavTransition()
                 ) {
                     NoteList(KoinF.di?.get<NoteViewModel>()!!, modifier) {
-                        navigator.navigate(TaskScreen.NoteItem.name)
+                        navigator.navigate(NotesScreen.NoteItem.name)
                     }
                 }
-                scene(route = TaskScreen.NoteItem.name) {
+                scene(route = NotesScreen.NoteItem.name) {
                     AddNoteView(KoinF.di?.get<AddNoteViewModel>()!!, modifier) {
                         navigator.goBack()
                     }
